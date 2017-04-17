@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+app_path = File.expand_path(File.dirname(__FILE__) + '/..')
+$LOAD_PATH.unshift(app_path + '/lib')
+require 'open3'
+require 'mines_field'
+
+INPUT_FILE_NAME = './example_mines.txt'
+OUTPUT_FILE_NAME = './example_output.txt' 
+BIN_NAME = './bin/mines_field'
+
+stdin = File.open(INPUT_FILE_NAME).read
+output, = Open3.capture2(BIN_NAME, stdin_data: stdin)
+File.write(OUTPUT_FILE_NAME, output)
+
+puts "Result was written to #{OUTPUT_FILE_NAME}"

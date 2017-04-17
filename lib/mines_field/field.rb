@@ -1,22 +1,23 @@
 module MinesField
   class Field
-    attr_reader :mines
+    attr_reader :mines, :detonated_mine
 
-    def initialize(mines, index)
-      @mines = mines
-      mines[index].detonate
+    def initialize(mines, mine)
+      @mines, @detonated_mine = mines, mine
+      detonated_mine.detonate
     end
 
     def self.total_explosions(mines)
-      mines.size.times do |index|
-        explosions = new(mines, index).explode_mines
-        puts "mine ##{index}: explosions #{explosions}"
+      fields = mines.map do |detonated_mine|
+        new(mines, detonated_mine).explode_mines
       end
+
+      fields.sort_by { |result| result[:explosions] }.reverse
     end
 
     def explode_mines
       detonate_activated_mines while detonated_mines.any?
-      exploded_mines.size - 1
+      { mine: detonated_mine, explosions: exploded_mines.size - 1 }
     ensure
       mines.each(&:reload)
     end

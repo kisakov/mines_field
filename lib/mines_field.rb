@@ -2,16 +2,12 @@ require 'state_machines'
 require 'mines_field/version'
 require 'mines_field/mine'
 require 'mines_field/field'
+require 'mines_field/processor'
 
 module MinesField
-  extend self
+  module_function
 
   def run
-    mines = ARGF.inject([]) do |coll, line|
-      args = line.split.map(&:to_i)
-      coll << Mine.new(*args)
-    end
-
-    MinesField::Field.total_explosions(mines)
+    Processor.run
   end
 end

@@ -18,6 +18,10 @@ module MinesField
       distance(mine) <= mine.radius
     end
 
+    def to_s
+      [x, y, radius].join(' ')
+    end
+
     private
 
     # Euclidean distance for Two dimensions
