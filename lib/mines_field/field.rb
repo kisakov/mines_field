@@ -4,39 +4,43 @@ module MinesField
 
     def initialize(mines, index)
       @mines = mines
-      mines[index].activate
+      mines[index].detonate
     end
 
-    def self.explode_mines(mines)
-      [].tap do |result|
-        mines.size.times do |index|
-          explosions = new(mines, index).explode_mines
-          result << explosions
-          puts "mine ##{index}: explosions #{explosions}"
-        end
-      end
-    end
-
-    %i[enabled activated detonated].each do |state|
-      define_method("#{state}_mines") do
-        mines.select { |mine| mine.public_send("#{state}?") }
+    def self.total_explosions(mines)
+      mines.size.times do |index|
+        explosions = new(mines, index).explode_mines
+        puts "mine ##{index}: explosions #{explosions}"
       end
     end
 
     def explode_mines
-      while activated_mines.any? do
-        activated_mines.each do |activated_mine|
-          activated_mine.detonate
-
-          enabled_mines.each do |enabled_mine|
-            enabled_mine.activate if enabled_mine.activate?(activated_mine)
-          end
-        end
-      end
-
-      detonated_mines.size - 1
+      detonate_activated_mines while detonated_mines.any?
+      exploded_mines.size - 1
     ensure
       mines.each(&:reload)
+    end
+
+    private
+
+    def detonate_activated_mines
+      detonated_mines.each do |detonated_mine|
+        detonated_mine.explode
+        explode_detonated_mines(detonated_mine)
+      end
+    end
+
+    def explode_detonated_mines(detonated_mine)
+      activated_mines.each do |activated_mine|
+        activated_mine.detonate if activated_mine.detonate?(detonated_mine)
+      end
+    end
+
+    # activated_mines; detonated_mines; exploded_mines
+    %i[activated detonated exploded].each do |state|
+      define_method("#{state}_mines") do
+        mines.select { |mine| mine.public_send("#{state}?") }
+      end
     end
   end
 end

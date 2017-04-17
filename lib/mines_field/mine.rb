@@ -1,25 +1,26 @@
 module MinesField
   class Mine < Struct.new(:x, :y, :radius)
-    state_machine :state, initial: :enabled do
-      event :activate do
-        transition enabled: :activated
-      end
-
+    state_machine :state, initial: :activated do
       event :detonate do
         transition activated: :detonated
       end
 
+      event :explode do
+        transition detonated: :exploded
+      end
+
       event :reload do
-        transition any => :enabled
+        transition any => :activated
       end
     end
 
-    def activate?(mine)
+    def detonate?(mine)
       distance(mine) <= mine.radius
     end
 
     private
 
+    # Euclidean distance for Two dimensions
     def distance(mine)
       Math.sqrt((x - mine.x)**2 + (y - mine.y)**2)
     end

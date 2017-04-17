@@ -12,6 +12,6 @@ module MinesField
       coll << Mine.new(*args)
     end
 
-    MinesField::Field.explode_mines(mines)
+    MinesField::Field.total_explosions(mines)
   end
 end
