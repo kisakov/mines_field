@@ -6,8 +6,7 @@ module MinesField
   # activated - default state of each mine.
   # detonated - the state when mine was "detonated", but not "exploded" yet.
   # exploded - after mine was "detonated", it's next state is "exploded".
-  # All activated mines that were in the blast radius of an "exploded" mine
-  # become "detonated".
+  # All activated mines that were in the blast radius of an "exploded" mine become "detonated".
   class Mine < Struct.new(:x, :y, :blast_radius)
     state_machine :state, initial: :activated do
       event :detonate do

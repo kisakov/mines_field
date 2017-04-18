@@ -5,9 +5,9 @@ $LOAD_PATH.unshift(app_path + '/lib')
 require 'open3'
 require 'mines_field'
 
-INPUT_FILE_NAME = './example_mines.txt'
-OUTPUT_FILE_NAME = './example_output.txt'
-BIN_NAME = './bin/mines_field'
+INPUT_FILE_NAME = './example_mines.txt'.freeze
+OUTPUT_FILE_NAME = './example_output.txt'.freeze
+BIN_NAME = './bin/mines_field'.freeze
 
 puts "Reading data from #{INPUT_FILE_NAME}"
 
