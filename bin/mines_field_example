@@ -6,8 +6,10 @@ require 'open3'
 require 'mines_field'
 
 INPUT_FILE_NAME = './example_mines.txt'
-OUTPUT_FILE_NAME = './example_output.txt' 
+OUTPUT_FILE_NAME = './example_output.txt'
 BIN_NAME = './bin/mines_field'
+
+puts "Reading data from #{INPUT_FILE_NAME}"
 
 stdin = File.open(INPUT_FILE_NAME).read
 output, = Open3.capture2(BIN_NAME, stdin_data: stdin)
