@@ -20,20 +20,18 @@ Go to the gem's directory and then execute:
 
 Go to the gem's directory.
 
-There are two ways on how to use the program.
+There are two ways on how to use the program:
 
-Option 1.
+**Option 1.**
 
 Reads mines from "example_mines.txt" file which should be located in the root of gem.
-
 Produces an output file "example_output.txt" which will be located in the root of gem.
 
     $ bin/mines_field_example
 
-Option 2.
+**Option 2.**
 
 For stdin provide the list of mines from file or like a string.
-
 Stdout can be written to the file or be displayed on the screen.
 
     $ cat example_mines.txt | bin/mines_field > example_output.txt
