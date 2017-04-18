@@ -1,4 +1,10 @@
 module MinesField
+  # Represents the field with mines and it's two arguments.
+  # mines - array of instances of Mine class
+  #         (ex [Mine.new(2, 2, 5), Mine.new(1, 1, 3)]),
+  #         which represents all mines on the field.
+  # detonated_mine - specific mine (ex Mine.new(2, 2, 5))
+  #                  that we are exploding in this round.
   class Field
     attr_reader :mines, :detonated_mine
 
