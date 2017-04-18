@@ -1,5 +1,13 @@
 module MinesField
-  class Mine < Struct.new(:x, :y, :radius)
+  # Represents mine with it's three input arguments:
+  # x, y coordinates and blast radius.
+  #
+  # Mine can be it one of three states:
+  # activated - default state of each mine.
+  # detonated - the state when mine was "detonated", but not "exploded" yet.
+  # exploded - after mine was "detonated", it's next state is "exploded".
+  # Other activated mines that were in the blast radius of an "exploded" mine become "detonated".
+  class Mine < Struct.new(:x, :y, :blast_radius)
     state_machine :state, initial: :activated do
       event :detonate do
         transition activated: :detonated
@@ -15,11 +23,11 @@ module MinesField
     end
 
     def detonate?(mine)
-      distance(mine) <= mine.radius
+      distance(mine) <= mine.blast_radius
     end
 
     def to_s
-      [x, y, radius].join(' ')
+      [x, y, blast_radius].join(' ')
     end
 
     private
