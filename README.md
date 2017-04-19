@@ -37,3 +37,7 @@ Stdout can be written to the file or be displayed on the screen.
     $ cat example_mines.txt | bin/mines_field > example_output.txt
     $ echo "1 1 1 \n 2 2 3" | bin/mines_field
 
+## Rspec and Rubocop
+
+    $ rspec
+    $ rubocop

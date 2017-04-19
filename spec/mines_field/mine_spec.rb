@@ -7,11 +7,11 @@ describe MinesField::Mine do
   subject { mine1 }
 
   describe '.detonate?' do
-    context 'when two mines located inside blast radius' do
+    context 'when two mines are located inside blast radius' do
       it { expect(subject.detonate?(mine3)).to be true }
     end
 
-    context 'when two mines located outside blast radius' do
+    context 'when two mines are located outside blast radius' do
       it { expect(subject.detonate?(mine2)).to be false }
     end
   end
