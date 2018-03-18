@@ -1,6 +1,5 @@
 # MinesField
 
-Coding exercise.
 
 ## Description
 
