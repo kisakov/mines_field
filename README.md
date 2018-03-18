@@ -1,6 +1,6 @@
 # MinesField
 
-Coding exercise for CrowdFlower.com
+Coding exercise.
 
 ## Description
 
